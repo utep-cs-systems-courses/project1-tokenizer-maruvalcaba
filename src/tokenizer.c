@@ -26,7 +26,7 @@ char *word_start(char *str)
     {
       i++;
     }
-  if(i == 0)
+  if(str[i] == '\0')
     {
       return 0;
     }
@@ -71,10 +71,23 @@ char *copy_str(char *inStr, short len)
 
 void print_tokens(char **tokens)
 {
-  while(*tokens != NULL)
+  int i = 0;
+  while(tokens[i] != NULL)
     {
-      printf("%s\n", *tokens);
+      printf("%s\n", tokens[i]);
+      i++;
     }
+}
+
+void free_tokens(char **tokens)
+{
+  int i = 0;
+  while(tokens[i] != NULL)
+    {
+      free(tokens[i]);
+      i++;
+    }
+  free(tokens);
 }
 
 char **tokenize(char* str)
@@ -84,10 +97,10 @@ char **tokenize(char* str)
   int i = 0;
   while(start)
     {
-    char *end = word_terminator(start);
-    tokens[i] = (char *) copy_str(start, end-start);
-    i++;
-    start = word_start(end);
+      char *end = word_terminator(start);
+      tokens[i] = (char *) copy_str(start, end-start);
+      i++;
+      start = word_start(end);
     }
   tokens[i] = NULL;
   return tokens;
@@ -140,5 +153,11 @@ int main()
   str5 = copy_str(str4, (sizeof(str4)/sizeof(char)));
   printf("%s\n", str5);
 
+  puts("new test");
+  char *str7 = "hello world how is the weather today";
+  char **tokenarr = tokenize(str7);
+  print_tokens(tokenarr);
+  free_tokens(tokenarr);
+  print_tokens(tokenarr);
 }
 
