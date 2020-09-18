@@ -40,7 +40,6 @@ char *word_terminator(char *word)
     {
       i++;
     }
-  printf("Number: %d\n", i);
   return word+i;
 }
 
@@ -48,10 +47,14 @@ int count_words(char *s)
 {
   int i = 0;
   char *str = s;
-  while(*word_terminator(str) != '\0')
+  while((*word_terminator(str) != '\0'))
     {
-      i++;
       str = word_start(word_terminator(str));
+      if(str ==  0)
+	{
+	  break;
+	}
+      i++;
     }
   i++;
   return i;
@@ -104,60 +107,5 @@ char **tokenize(char* str)
     }
   tokens[i] = NULL;
   return tokens;
-}
-
-int main()
-{
-  int value;
-  
-  value = space_char(' ');
-  printf("%d\n", value);
-  value = space_char('\t');
-  printf("%d\n", value);
-  value = space_char('c');
-  printf("%d\n", value);
-  value = space_char('0');
-  printf("%d\n", value);
-  value = space_char('\0');
-  printf("%d\n", value);
-  puts("");
-  
-  value = non_space_char(' ');
-  printf("%d\n", value);
-  value = non_space_char('\t');
-  printf("%d\n", value);
-  value = non_space_char('c');
-  printf("%d\n", value);
-  value = non_space_char('0');
-  printf("%d\n", value);
-  value = non_space_char('\0');
-  printf("%d\n", value);
-  puts("");
-  
-  char *str = "   hello";
-  int x = (&str[3] == word_start(str));
-  printf("Did it work? %d\n", x);
-  puts("");
-
-  char *str3 = "happy joy";
-  int x1 = (&str3[5] == word_terminator(str3));
-  printf("Did it work? %d\n", x1);
-  puts("");
-
-  int x2 = (count_words(str3));
-  printf("Number of words in 'happy joy: %d\n", x2);
-
-  char *str4 = "happy joy";
-  char *str5;
-  printf("size is %d\n", (sizeof(str4)/sizeof(char)));
-  str5 = copy_str(str4, (sizeof(str4)/sizeof(char)));
-  printf("%s\n", str5);
-
-  puts("new test");
-  char *str7 = "hello world how is the weather today";
-  char **tokenarr = tokenize(str7);
-  print_tokens(tokenarr);
-  free_tokens(tokenarr);
-  print_tokens(tokenarr);
 }
 
