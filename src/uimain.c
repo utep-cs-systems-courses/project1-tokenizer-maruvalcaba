@@ -11,42 +11,36 @@ int main()
     char str[50];
     scanf(" %[^\n]", str, 50);
     puts("\n\n");
-    if(str[0] == '!')
-      {
-	if(str[1] == 'q')
-	  {
+    if(str[0] == '!'){
+	if(str[1] == 'q'){
 	    goto quit;
 	  }
-	else if(str[1] == 'h')
-	  {
+	else if(str[1] == 'h'){
 	    print_history(list);
 	    puts("\n\n");
 	  }
-	else
-	  {
+	else{
 	    char strNum[49];
 	    int z = 0;
-	    while(str[z+1])
-	      {
+	    while(str[z+1]){
 		strNum[z] = str[z+1];
 		z++;
 	      }
 	    int id = atoi(strNum);
 	    char *str1 = get_history(list, id);
-	    if(str1 == 0)
-	      {
+	    if(str1 == 0){
 		printf("Invalid input.\n");
 		continue;
 	      }
-	    char **tokenized = tokenize(get_history(list, id));
+	    char **tokenized = tokenize(str1);
+	    printf("%s\n\n", str1);
 	    print_tokens(tokenized);
 	    puts("\n\n");
 	    free_tokens(tokenized);
 	    continue;
 	  }
       }
-    else
-      {
+    else{
 	add_history(list, str);
 	char **tokenized = tokenize(str);
 	print_tokens(tokenized);
@@ -54,6 +48,7 @@ int main()
 	free_tokens(tokenized);
       }
   } 
- quit: printf("Goodbye!\n");
+ quit:
+  printf("Goodbye!\n");
   free_history(list);
 }
