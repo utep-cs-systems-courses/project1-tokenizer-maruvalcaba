@@ -1,9 +1,9 @@
 #include "history.h"
 #include <stdio.h>
 #include <stdlib.h>
-List *init_history()
+List *init_history()                  /* initializes the history list of tokens, returns pointer */
 {
-  List *history = malloc(sizeof(List));
+  List *history = malloc(sizeof(List)); /* allocates space for the pointer to the list */
   history -> root = 0;
   return history;
 }
